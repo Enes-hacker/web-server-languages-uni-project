@@ -1,0 +1,36 @@
+﻿@model IEnumerable<WAREHOUSE_MANAGEMENT_SYSTEM.Data.Models.Category>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Categories</h1>
+
+<p>
+    <button type="button" class="btn btn-outline-primary"><a asp-action="Create">Create New </a></button>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <button type="button" class="btn btn-success"><a asp-action="Edit" asp-route-id="@item.Id">Edit</a> </button>
+                <button type="button" class="btn btn-warning"><a asp-action="Details" asp-route-id="@item.Id">Details</a></button>
+                <button type="button" class="btn btn-danger"><a asp-action="Delete" asp-route-id="@item.Id" onclick="return confirm('Are you sure: @item.Name')">Delete</a> </button>
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

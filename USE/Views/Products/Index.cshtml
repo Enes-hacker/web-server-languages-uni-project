@@ -1,0 +1,189 @@
+﻿@model IEnumerable<WAREHOUSE_MANAGEMENT_SYSTEM.Data.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+
+
+    int intSno = 0;
+
+    Pager pager = new Pager();
+
+    int pageNo = 0;
+
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+
+
+    }
+}
+
+<h1>Products</h1>
+
+<div class="container">
+    @if (pager.TotalPages > 0)
+    {
+        <ul class="pagination justify-content-end">
+
+            @if (pager.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Products" asp-action="Index" asp-route-pg="1">First</a>
+
+
+
+                    <a class="page-link" asp-controller="Products" asp-action="Index" asp-route-pg="@(pager.CurrentPage - 1)">Previous</a>
+
+                </li>
+            }
+
+
+            @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+            {
+                <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
+                    <a class="page-link" asp-controller="Products" asp-action="Index" asp-route-pg="@pge">@pge</a>
+
+                </li>
+
+            }
+            @if (pager.CurrentPage < pager.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Products" asp-action="Index" asp-route-pg="@(pager.CurrentPage  + 1)">Next</a>
+
+
+
+                    <a class="page-link" asp-controller="Products" asp-action="Index" asp-route-pg="@(pager.TotalPages)">Last</a>
+
+                </li>
+
+            }
+
+
+        </ul>
+    }
+</div>
+
+<p>
+    <button type="button" class="btn btn-outline-primary"><a  asp-action="Create">Create New</a></button>
+    
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+               
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Count)
+            </th>
+            <th>
+
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+           
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Count)
+            </td>
+
+            <td>
+                <img src="@Url.Content(item.ImageUrl)" alt="not found" style="width:200px;height:200px" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td>
+              
+                <button type="button" class="btn btn-success"><a asp-action="Edit" asp-route-id="@item.Id">Edit</a> </button>
+                <button type="button" class="btn btn-warning"><a asp-action="Details" asp-route-id="@item.Id">Details</a></button>
+                <button type="button" class="btn btn-danger"><a asp-action="Delete" asp-route-id="@item.Id" onclick="return confirm('Are you sure: @item.Name')">Delete</a> </button>
+               
+               
+               @* <button type="button" class="btn btn-outline-success"><a asp-action="Edit" asp-route-id="@item.Id">Edit</a> </button>
+                <button type="button" class="btn btn-success"><a asp-action="Details" asp-route-id="@item.Id">Details</a> </button>
+                <button type="button" class="btn btn-danger"><a asp-action="Delete" asp-route-id="@item.Id" onclick="return confirm('Are you sure: @item.Name')">Delete</a> </button>
+                   *@
+            </td>
+        </tr>
+            }
+        </tbody>
+</table>
+
+<div class="container">
+    @if (pager.TotalPages > 0)
+    {
+        <ul class="pagination justify-content-end">
+
+            @if (pager.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Products" asp-action="Index" asp-route-pg="1">First</a>
+
+
+
+                    <a class="page-link" asp-controller="Products" asp-action="Index" asp-route-pg="@(pager.CurrentPage - 1)">Previous</a>
+
+                </li>
+            }
+
+
+            @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+            {
+                <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
+                    <a class="page-link" asp-controller="Products" asp-action="Index" asp-route-pg="@pge">@pge</a>
+
+                </li>
+
+            }
+            @if (pager.CurrentPage < pager.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Products" asp-action="Index" asp-route-pg="@(pager.CurrentPage  + 1)">Next</a>
+
+
+
+                    <a class="page-link" asp-controller="Products" asp-action="Index" asp-route-pg="@(pager.TotalPages)">Last</a>
+
+                </li>
+
+            }
+
+
+        </ul>
+    }
+</div>
+
